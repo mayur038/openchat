@@ -2,6 +2,12 @@ from pathlib import Path
 import os
 
 import dj_database_url
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 DATABASES['default'] = dj_database_url.config(
     default='postgres://default:AsGZ3Qcod1CL@ep-broad-fire-a4y436i4.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require',
     conn_max_age=600,
