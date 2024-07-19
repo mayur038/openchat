@@ -1,0 +1,116 @@
+body
+{
+   background-color: #D6EFD8;
+   margin: 0%;
+   padding: 0%; 
+}
+.main
+{
+    background-color: rgba(245, 245, 245, 0.44);
+    width: 40%;
+    height: auto;
+    margin: 10% auto;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.06);
+}
+.main h2
+{
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    color: rgba(0, 0, 0, 0.554);
+    overflow: hidden;
+}
+.main b
+{
+    margin: 0%;
+    font-size: 40px;
+    color: #508D4E;
+    overflow: hidden;
+}
+.nav
+{
+    height: 40px;
+    width: 60%;
+    margin: 4% auto;
+    text-align: center;
+    border-bottom: 2px solid #D6EFD8;
+}
+.nav a 
+{
+    width: 49%;
+    display: inline-block;
+    align-items: center;
+    font-size: 20px;
+    text-decoration: none;
+    
+    margin-bottom: 0%;
+    padding: 3px auto;
+    height: 100%;
+    overflow: hidden;
+
+}
+.active
+{
+    border-bottom: 2px solid #508D4E;
+    color: #508D4E;
+    transition: 0.3s all;
+}
+form label
+{
+  
+    display: block;
+    width: auto ;
+    margin: auto 19%;
+    color: #1a5319;
+    letter-spacing: 1px;
+    font-family: 18px;
+}
+form input
+{
+    display: block;
+    margin: auto auto;
+    margin-bottom: 5%;
+    width: 60%;
+    height: 25px;
+    outline: none;
+    border: 1.5px solid #1a5319b5;
+    font-size: 18px;
+    border-radius:3px;
+}
+form input:focus
+{
+    color: #508D4E;
+    border-color: #297b27;
+}
+.text
+{
+margin: 1% auto;
+text-align: center;
+}
+form a
+{
+    text-decoration: none;
+    color: #297b27;
+}
+form button
+{
+    width: 40%;
+    display: block;
+    margin: 20px auto;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #508D4E;
+    color: white;
+    font-size: 18px ;
+    letter-spacing: 1px;
+}
+form button:hover
+{
+    cursor: pointer;
+    background-color: #457d43;
+    transition: 0.3s all;
+}

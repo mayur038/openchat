@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <title>Login | Signup</title>
+    <style>
+        body {
+   background-color: #DBE2EF;
+   margin: 0%;
+   padding: 0%; 
+}
+
+.main {
+    background-color: #F9F7F7;
+    width: 40%;
+    height: auto;
+    margin: 10% auto;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.main h2 {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    color: #3F72AF;
+    overflow: hidden;
+}
+
+.main b {
+    margin: 0%;
+    font-size: 40px;
+    color: #112D4E;
+    overflow: hidden;
+}
+
+.nav {
+    height: 40px;
+    width: 60%;
+    margin: 4% auto;
+    text-align: center;
+    border-bottom: 2px solid #DBE2EF;
+}
+
+.nav a {
+    width: 49%;
+    display: inline-block;
+    align-items: center;
+    font-size: 20px;
+    text-decoration: none;
+    margin-bottom: 0%;
+    padding: 3px auto;
+    height: 100%;
+    overflow: hidden;
+}
+
+.active {
+    border-bottom: 2px solid #3F72AF;
+    color: #3F72AF;
+    transition: 0.3s all;
+}
+
+form label {
+    display: block;
+    width: auto;
+    margin: auto 19%;
+    color: #112D4E;
+    letter-spacing: 1px;
+    font-size: 18px;
+}
+
+form input {
+    display: block;
+    margin: auto auto;
+    margin-bottom: 5%;
+    width: 60%;
+    height: 25px;
+    outline: none;
+    border: 1.5px solid #112D4E;
+    font-size: 18px;
+    border-radius: 3px;
+}
+
+form input:focus {
+    color: #3F72AF;
+    border-color: #112D4E;
+}
+
+.text {
+    margin: 1% auto;
+    text-align: center;
+}
+
+form a {
+    text-decoration: none;
+    color: #112D4E;
+}
+
+form button {
+    width: 40%;
+    display: block;
+    margin: 20px auto;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    background-color: #3F72AF;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1px;
+}
+
+form button:hover {
+    cursor: pointer;
+    background-color: #112D4E;
+    transition: 0.3s all;
+}
+
+    </style>
+</head>
+<body>
+    <section class="main">
+        <h2><b>Open</b>Chat</h2>
+        <div class="login" id="login">
+            <div class="nav">
+                <a href="#" class="active">Login</a>
+                <a href="#" onclick="signup()">Signup</a>
+            </div>
+            <form action="{% url 'login' %}" id="loginForm" method="post">
+                {% csrf_token %}
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" required />
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required />
+
+                <div class="text">
+                    Don't have an account? <a href="#" onclick="signup()">Create account</a>
+                </div>
+                <button type="submit">Log In</button>
+            </form>
+        </div>
+        <div class="signup" id="signup" style="display: none;">
+            <div class="nav">
+                <a href="#" onclick="login()">Login</a>
+                <a href="#" class="active">Signup</a>
+            </div>
+            <form action="{% url 'register' %}" id="signupForm" method="post">
+                {% csrf_token %}
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email_signup" required />
+
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" id="phone_signup" required />
+
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username_signup" required />
+
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password_signup" required />
+
+                <div class="text">
+                    Already have an account? <a href="#" onclick="login()">Log in</a>
+                </div>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </section>
+    <script>
+        function signup() {
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('signup').style.display = 'block';
+        }
+
+        function login() {
+            document.getElementById('login').style.display = 'block';
+            document.getElementById('signup').style.display = 'none';
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            fetch('http://127.0.0.1:8000/login', { // Ensure this URL is correct
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            })
+            .then(response => {
+                console.log(response); // Log the response for debugging
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    window.location.href = '/create_pase';
+                } else {
+                    alert('Login failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please check the console for more details.');
+            });
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email_signup').value;
+            const phone = document.getElementById('phone_signup').value;
+            const username = document.getElementById('username_signup').value;
+            const password = document.getElementById('password_signup').value;
+
+            fetch('http://127.0.0.1:8000/register', { // Ensure this URL is correct
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, phone, username, password }),
+            })
+            .then(response => {
+                console.log(response); // Log the response for debugging
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                if (data.token) {
+                    localStorage.setItem('token', data.token);
+                    window.location.href = '/create_pase';
+                } else {
+                    alert('Signup failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please check the console for more details.');
+            });
+        });
+    </script>
+</body>
+</html>

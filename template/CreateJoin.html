@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <title>Enter Room</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    
+        .main {
+            height: auto;
+            position: relative;
+            overflow: hidden;
+        }
+    
+        .code {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 33px;
+            letter-spacing: 2px;
+            color: #3F72AF; /* Updated code color */
+        }
+    
+        .s {
+            text-align: center;
+        }
+    
+        .s button {
+            margin: 3%;
+            border-radius: 10px;
+            text-align: center; 
+            width: 100px;
+            height: 100px;
+            position: relative;
+            overflow: hidden;
+            outline: none;
+            border: 2px solid #3F72AF; /* Updated button border color */
+            color: #3F72AF; /* Updated button text color */
+        }
+    
+        .s button:hover {
+            cursor: pointer;
+            filter: invert(10%);
+            transition: 0.3s all;
+        }
+    
+        .s button i {
+            display: block;
+            margin: 10px auto;
+            font-size: 33px;
+            color: #3F72AF; /* Updated icon color */
+        }
+    
+        form input {
+            text-align: center;
+            font-size: 33px;
+            letter-spacing: 2px;
+            border: none;
+            outline: none;
+            border-bottom: 2px solid #3F72AF; /* Updated input border color */
+            background: none;
+        }
+    
+        form p {
+            text-align: center;
+            font-size: 16px;
+        }
+    
+        form p span {
+            color: #3F72AF; /* Updated span color */
+        }
+        body {
+   background-color: #DBE2EF;
+   margin: 0%;
+   padding: 0%; 
+}
+
+.main {
+    background-color: #F9F7F7;
+    width: 40%;
+    height: auto;
+    margin: 10% auto;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.main h2 {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    color: #3F72AF;
+    overflow: hidden;
+}
+
+.main b {
+    margin: 0%;
+    font-size: 40px;
+    color: #112D4E;
+    overflow: hidden;
+}
+
+        form {
+            text-align: center;
+        }
+    
+        form button {
+            padding: 12px 50px;
+            outline: none;
+            border: 2px solid #3F72AF; /* Updated button border color */
+            color: #3F72AF; /* Updated button text color */
+        }
+    
+        .submit:hover {
+            background-color: #112D4E; /* Updated hover background color */
+            cursor: pointer;
+        }
+    
+        .submit {
+            width: 40%;
+            display: block;
+            margin: 20px auto;
+            height: 30px;
+            border-radius: 5px;
+            border: none;
+            background-color: #3F72AF; /* Updated button background color */
+            color: white;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+        input::placeholder {
+    color: #3F72AF; /* Replace with your desired color */
+    opacity: 1; /* Ensure placeholder text is fully opaque */
+}
+    </style>
+    
+</head>
+<body>
+    <section class="main">
+        <h2><b>Open</b>Chat</h2>
+        <div class="s">
+            <button id="createRoomBtn"><i class="fas fa-plus-circle"></i>Create Room</button>
+            <button id="joinRoomBtn"><i class="fas fa-sign-in-alt"></i>Join Room</button>
+        </div>
+        <div class="hidden" id="createRoomSection">
+            <p style="color: #3F72AF;text-align: center;font-family: Verdana, Geneva, Tahoma, sans-serif;overflow: hidden;">This is Your Room Code use this to join the Room</p>
+            <h2 class="code" id="roomCode"></h2>
+            <button class="submit"  id="startChatBtn" disabled>Start Chat</button>
+        </div>
+        <div class="hidden" id="joinRoomSection">
+            <form action="{% url 'join' %}" method="post">
+                {% csrf_token %}
+                <input type="text" id="chatcode" name="chatcode" placeholder="Room Code" required>
+                <p>Don't have a room? <span>Create a room</span></p>
+                <button type="submit" class="submit" id="joinBtn">Join</button>
+            </form>
+        </div>
+    </section>
+    <script>
+        const createRoomBtn = document.getElementById('createRoomBtn');
+        const joinRoomBtn = document.getElementById('joinRoomBtn');
+        const createRoomSection = document.getElementById('createRoomSection');
+        const joinRoomSection = document.getElementById('joinRoomSection');
+        const roomCodeElement = document.getElementById('roomCode');
+        const startChatBtn = document.getElementById('startChatBtn');
+        const joinBtn = document.getElementById('joinBtn');
+        const chatcodeInput = document.getElementById('chatcode');
+
+        createRoomBtn.addEventListener('click', function() {
+            createRoomSection.classList.remove('hidden');
+            joinRoomSection.classList.add('hidden');
+
+            fetch('generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${localStorage.getItem('token')}`,
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                roomCodeElement.textContent = data.chatcode;
+                startChatBtn.disabled = false;
+                startChatBtn.addEventListener('click', function() {
+                    fetch('create', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Token ${localStorage.getItem('token')}`,
+                        },
+                        body: JSON.stringify({ "chatcode": data.chatcode })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.redirect === 'message') {
+                            window.location.href = `/message/${data.chatcode}/`;
+                        } else {
+                            console.error('Error creating room:', data);
+                        }
+                    })
+                    .catch(error => console.error('Error creating room:', error));
+                });
+            })
+            .catch(error => console.error('Error generating room code:', error));
+        });
+
+        joinRoomBtn.addEventListener('click', function() {
+            joinRoomSection.classList.remove('hidden');
+            createRoomSection.classList.add('hidden');
+        });
+
+        joinBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            const chatcode = chatcodeInput.value;
+            window.location.href = `/message/${chatcode}/`;
+        });
+    </script>
+</body>
+</html>

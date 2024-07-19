@@ -1,0 +1,316 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Openchat | message</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        .main {
+            width: 50%;
+            margin: 3% 25%;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+    
+        .box3 {
+            width: 300px;
+            margin: 40px 30px;
+            border-radius: 15px;
+            background: #3F72AF; /* Updated background color */
+            color: #fff; /* Text color remains white */
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            position: relative;
+            letter-spacing: 1px;
+        }
+    
+        .sb13:before {
+            content: "";
+            width: 0px;
+            height: 0px;
+            position: absolute;
+            border-left: 15px solid #3F72AF; /* Updated color */
+            border-right: 15px solid transparent;
+            border-top: 15px solid #3F72AF; /* Updated color */
+            border-bottom: 15px solid transparent;
+            right: -16px;
+            top: 0px;
+        }
+    
+        .sb14:before {
+            content: "";
+            width: 0px;
+            height: 0px;
+            position: absolute;
+            border-left: 15px solid transparent;
+            border-right: 15px solid #3F72AF; /* Updated color */
+            border-top: 15px solid #3F72AF; /* Updated color */
+            border-bottom: 15px solid transparent;
+            left: -16px;
+            top: 0px;
+        }
+     body {
+   background-color: #DBE2EF;
+   margin: 0%;
+   padding: 0%; 
+}
+        header {
+            height: 10%;
+            background-color: #b1c4e9; 
+            padding: 10px;/* Updated background color */
+            border-radius: 8px;
+        }
+    
+        .left {
+            height: 100%;
+            width: 25%;
+            float: left;
+        }
+    
+        .right {
+            float: right;
+            width: 74%;
+            height: 100%;
+            text-align: right;
+        }
+    
+        .send {
+            width: 100%;
+            height: auto;
+            position: absolute;
+            bottom: 0;
+            overflow: hidden;
+        }
+    
+        form input {
+            width: 85%;
+            border: 1px solid rgba(0, 0, 0, 0.171);
+            margin-left: 1px;
+            float: left;
+            height: 40px;
+            display: inline-block;
+            margin-bottom: 0%;
+            vertical-align: baseline;
+        }
+    
+        form button {
+            display: inline-block;
+            width: 14.5%;
+            height: 40px;
+            vertical-align: baseline;
+            border-radius: 1px;
+            float: right;
+            margin: 0%;
+            margin-right: 1px;
+            background-color: #3F72AF; /* Updated background color */
+            color: white; /* Text color remains white */
+        }
+    
+        .image {
+            width: 50px;
+            height: 50px;
+            margin: 10px auto;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 0, 0, 0.084);
+            background-color: #112D4E; /* Updated background color */
+            margin-bottom: 3px;
+        }
+    
+        .right h2 {
+            margin: 30px 20px;
+            margin-bottom: 0%;
+            width: 20%;
+            display: inline-block;
+            font-size: 20px;
+            letter-spacing: 1px;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: #3F72AF; /* Updated text color */
+        }
+    
+        .people, .image, .exit {
+            margin: 0% 3%;
+            height: 40px;
+            width: 40px;
+            background-color: #3F72AF; /* Updated background color */
+            border-radius: 50%;
+            display: inline-flex;
+            vertical-align: middle;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            color: white; /* Text color remains white */
+        }
+    
+        .messages {
+            width: 100%;
+            height: 100%;
+            background-color: #F9F7F7; /* Updated background color */
+            overflow-y: auto;
+        }
+    
+        .messages::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+            background-color: #F5F5F5;
+            border-radius: 10px;
+        }
+    
+        .messages::-webkit-scrollbar {
+            width: 10px;
+            background-color: #F5F5F5;
+        }
+    
+        .messages::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: #FFF;
+            background-image: -webkit-linear-gradient(top, #e4f5fc 0%, #bfe8f9 50%, #9fd8ef 51%, #2ab0ed 100%);
+        }
+    .h3
+    {
+        position: relative;
+    
+    margin-top: 15px;
+    color: #3F72AF;
+    overflow: hidden;
+    margin:10px 2%;
+    margin-bottom: 0%;
+    }
+    .h3 b
+    {
+        margin: 0%;
+    font-size: 40px;
+    color: #112D4E;
+    overflow: hidden;
+    }
+    </style>
+    
+</head>
+<body>
+    <h2 class="h3"><b>Open</b>Chat</h2>
+    <section class="main">
+        
+        <header>
+            <div class="left">
+                <div class="image" style=" height: 50px;margin: 4% 3%; width: 50px;"><i class="fas fa-user-graduate"></i></div>
+            </div>
+            <div class="right">
+                <h2>{{chatcode}}</h2>
+                <div class="people">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="exit">
+                    <a href="{% url 'created' %}" style="color: white;text-decoration: none;"><i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+        </header>
+        <div class="messages">
+            <div class="scrollbar" id="style-16">
+                <div class="force-overflow">
+                   
+
+                       
+                </div>
+            </div>
+        </div>
+        <div class="send">
+            <form action="{% url 'chat' chatcode %}" method="post"> {% csrf_token %}
+                <input type="text" name="Message" placeholder="message...">
+                <button type="submit"><i class="fas fa-paper-plane"></i></button>
+            </form>
+        </div>
+    </section>
+</body> <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const authToken = 'Token ' + localStorage.getItem('token');
+        console.log(authToken); // Check if the token is correctly retrieved
+
+        const chatContainer = document.querySelector('.force-overflow');
+
+        // Function to fetch chat data from the API
+        function fetchChatData() {
+            console.log("Fetching chat data");
+
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/chat/{{ chatcode }}/', true);
+            xhr.setRequestHeader('Authorization', authToken); // Set the Authorization header
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        const data = JSON.parse(xhr.responseText);
+                        console.log('Received data:', data); // Log the data for debugging
+                        updateChatContainer(data);
+                        // Immediately initiate another long poll request
+                        fetchChatData();
+                    } else {
+                        // If there's an error, retry after a short delay
+                        console.error('Error fetching data:', xhr.statusText);
+                        // setTimeout(fetchChatData, 1000);
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        // Function to update the chat container with new data
+        function updateChatContainer(data) {
+            console.log('Updating chat container with data:', data);
+
+            chatContainer.innerHTML = ''; // Clear the current content
+
+            if (Array.isArray(data.Message)) {
+                data.Message.forEach(function(message) {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('box3', 'sb14');
+                    messageElement.textContent = message.Message; // Display the Message key value
+                    chatContainer.appendChild(messageElement);
+                });
+            } else {
+                console.error('Expected data.data to be an array, but got:', data.Message);
+            }
+        }
+
+        // Start the initial long poll request
+        fetchChatData();
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector('form');
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const authToken = 'Token ' + localStorage.getItem('token');
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            headers: {
+                'Authorization': authToken,
+                'X-CSRFToken': form.querySelector('input[name="csrfmiddlewaretoken"]').value
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            } else {
+                console.error('Error:', data);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+
+
+</script>
+
+
+</html>
