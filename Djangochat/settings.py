@@ -2,17 +2,7 @@ from pathlib import Path
 import os
 
 import dj_database_url
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-DATABASES['default'] = dj_database_url.config(
-    default='postgres://default:AsGZ3Qcod1CL@ep-broad-fire-a4y436i4.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require',
-    conn_max_age=600,
-    conn_health_checks=True,
-)
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -123,3 +113,14 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'uniquecoder010@gmail.com'
 EMAIL_HOST_PASSWORD = 'oqit urwi eoam wswx'
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+DATABASES['default'] = dj_database_url.config(
+    default='postgres://default:AsGZ3Qcod1CL@ep-broad-fire-a4y436i4.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require',
+    conn_max_age=600,
+    conn_health_checks=True,
+)
