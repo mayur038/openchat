@@ -88,8 +88,9 @@ AUTH_PASSWORD_VALIDATORS = [
 import os
 
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'public/static'),
-STATIC_ROOT = os.path.join(BASE_DIR, STATICFILES_DIRS, 'static')
+
 # Static files (CSS, JavaScript, Images)
 
 
