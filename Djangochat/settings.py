@@ -1,6 +1,13 @@
 from pathlib import Path
 import os
 
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(
+    default='postgres://default:AsGZ3Qcod1CL@ep-broad-fire-a4y436i4.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require',
+    conn_max_age=600,
+    conn_health_checks=True,
+)
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-a)_)ak+lw+&*$b5!yhf(f-zgfs01@o=$p^(+#)o00ane+3w1^j'
