@@ -90,7 +90,7 @@ import os
 STATIC_URL = 'public/static/'
 
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'public/static'),
-STATIC_ROOT = os.path.join(BASE_DIR, 'public/static/')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'public/static/')
 # Static files (CSS, JavaScript, Images)
 
 
