@@ -11,6 +11,7 @@ SECRET_KEY = 'django-insecure-a)_)ak+lw+&*$b5!yhf(f-zgfs01@o=$p^(+#)o00ane+3w1^j
 DEBUG = True
 
 ALLOWED_HOSTS = ['.vercel.app','.now.sh']
+CSRF_TRUSTED_ORIGINS = ['.vercel.app', '.now.sh']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -114,6 +115,7 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'uniquecoder010@gmail.com'
 EMAIL_HOST_PASSWORD = 'oqit urwi eoam wswx'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
