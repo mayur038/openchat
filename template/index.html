@@ -188,7 +188,7 @@ form button:hover {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            fetch(loc+'/login', { // Ensure this URL is correct
+            fetch('/login', { // Ensure this URL is correct
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -221,7 +221,7 @@ form button:hover {
             const username = document.getElementById('username_signup').value;
             const password = document.getElementById('password_signup').value;
 
-            fetch(loc+'/register', { // Ensure this URL is correct
+            fetch('/register', { // Ensure this URL is correct
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
