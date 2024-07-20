@@ -48,6 +48,7 @@ class Register(APIView):
         
             return JsonResponse({"token": str(token), "status": status.HTTP_200_OK, "ok": True})
         return render(request, 'error.html', {"message":serializer.errors})
+    
 class Login(APIView):
     permission_classes = [AllowAny]
 
@@ -60,6 +61,7 @@ class Login(APIView):
             print(token)
             return JsonResponse({"token": str(token), "status": status.HTTP_200_OK, "ok": True})
         return render(request, 'error.html', {"message":serializer.errors})
+    
 class CreateRoom(APIView):
     permission_classes = [IsAuthenticated]
 
