@@ -171,6 +171,8 @@ form button:hover {
         </div>
     </section>
     <script>
+        const loc = window.location.host;
+        console.log(loc)
         function signup() {
             document.getElementById('login').style.display = 'none';
             document.getElementById('signup').style.display = 'block';
@@ -186,7 +188,7 @@ form button:hover {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            fetch('http://127.0.0.1:8000/login', { // Ensure this URL is correct
+            fetch(loc+'/login', { // Ensure this URL is correct
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -219,7 +221,7 @@ form button:hover {
             const username = document.getElementById('username_signup').value;
             const password = document.getElementById('password_signup').value;
 
-            fetch('http://127.0.0.1:8000/register', { // Ensure this URL is correct
+            fetch(loc+'/register', { // Ensure this URL is correct
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

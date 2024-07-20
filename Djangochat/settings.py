@@ -10,7 +10,7 @@ SECRET_KEY = 'django-insecure-a)_)ak+lw+&*$b5!yhf(f-zgfs01@o=$p^(+#)o00ane+3w1^j
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app','.now.sh']
+ALLOWED_HOSTS = ['.vercel.app','.now.sh','localhost:8000','127.0.0.1:8000']
 CSRF_TRUSTED_ORIGINS = ['https://openchat-j4099f886-mayur038s-projects.vercel.app', 'https://openchat-git-main-mayur038s-projects.vercel.app/']
 
 INSTALLED_APPS = [
